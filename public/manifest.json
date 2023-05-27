@@ -20,6 +20,9 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#16161f",
+  "background_color": "#16161f",
+  "display_override": [ 
+    "window-controls-overlay" 
+  ]
 }

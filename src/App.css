@@ -1,38 +1,180 @@
-.App {
+:root {
+  --fallback-title-bar-height: 40px;
+  --theme-primary: rgba(252,176,69,1);
+  --theme-primary-hl: rgb(255, 202, 128);
+  --theme-secondary: #8c00ff;
+  --app-bg: #16161f;
+  --panel-bg: #1a1b27;
+  --rainbows: linear-gradient(90deg, rgba(252,176,69,1) 0%, rgba(253,29,29,1) 50%, rgba(131,58,180,1) 100%);
+}
+
+
+h1 {
+  color: var(--theme-primary);
+  margin: 0;
+}
+h2 {
+  color: var(--theme-secondary);
+  margin: 0;
+}
+
+.draggable {
+  app-region: drag;
+  /* Pre-fix app-region during standardization process */
+  -webkit-app-region: drag;
+}
+
+.nonDraggable {
+  app-region: no-drag;
+  /* Pre-fix app-region during standardization process */
+  -webkit-app-region: no-drag;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
+#root::-webkit-scrollbar {
+  width: 20px;
+  background-color: var(--app-bg);
+}
+
+#root::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0);
+}
+#root::-webkit-scrollbar-thumb {
+  background-color: var(--panel-bg);
+  border-radius: 6px;
+  border: 4px solid rgba(0,0,0,0);
+  background-clip: content-box;
+  min-width: 32px;
+  min-height: 32px;
+}
+#root::-webkit-scrollbar-thumb:hover {
+  width: 20px;
+  background-color: #20202e;
+}
+#root::-webkit-scrollbar-track {
+  background-color: rgba(0,0,0,0);
+}
+
+.link {
+  color: var(--theme-secondary);
+  cursor: pointer;
+}
+
+#titleBarContainer {
+  position: absolute;
+  top: env(titlebar-area-y, 0);
+  height: env(titlebar-area-height, var(--fallback-title-bar-height));
+  width: 100%;
+  background-color:#16161f;
+}
+
+#titleBar {
+  position: absolute;
+  top: 0;
+  display: flex;
+  user-select: none;
+  height: 100%;
+  left: env(titlebar-area-x, 0);
+  width: env(titlebar-area-width, 100%);
+  color: #FFFFFF;
+  font-weight: bold;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#titleBar > span {
+  margin: auto;
+  padding: 0px 16px 0px 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#titleBar > input {
+  flex: 1;
+  margin: 8px;
+  border-radius: 5px;
+  border: none;
+  padding: 8px;
 }
 
-.App-header {
-  background-color: #282c34;
+#root {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: env(titlebar-area-height, var(--fallback-title-bar-height));
+  overflow-y: scroll;
+}
+
+.App {
+  background-color: var(--app-bg);
   min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+}
+
+.app-panel {
+  background-color: var(--panel-bg);
+  border-radius: 6px;
+  margin: 5px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.side-panel {
+  width: 200px;
+  height: 99vh;
+}
+
+.help-panel {
+  width: 100%;
+  height: 70px;
+  background: var(--rainbows);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #ffffff;
+  padding-top: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.help-panel > div {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.welcome-message {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.main-panel {
+  width: 100%;
+  height: calc(100vh - 160px);
+}
+
+.main-cont {
+  width: calc(99% - 200px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-panel-header {
+  width: 100%;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  height: 32px;
+  padding-top: 8px;
+  background-color: var(--theme-primary);
+  text-transform: capitalize;
+  font-weight: 600;
+  text-align: center;
+}
+
+.app-panel-header:hover {
+  background-color: var(--theme-primary-hl);
+  cursor: pointer;
+  user-select: none;
 }

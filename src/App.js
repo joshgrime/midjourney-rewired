@@ -7,6 +7,13 @@ import Sidepanel from './components/Sidepanel';
 import Home from './pages/Home';
 import ImageView from './pages/ImageView';
 
+const { ipcRenderer } = window.require('electron');
+
+const channel = new MessageChannel()
+const app_port = channel.port1
+const server_port = channel.port2
+ipcRenderer.postMessage('port', null, [app_port]);
+
 function App() {
 
   const [view, setView] = useState('home');
@@ -23,7 +30,7 @@ function App() {
         <div className="app-panel main-panel">
           {{ //mini router
             home: <Home navTo={navTo} />,
-            imageview: <ImageView navTo={navTo} />
+            imageview: <ImageView navTo={navTo} port={server_port} />
             } [view]}
         </div>
       </div>

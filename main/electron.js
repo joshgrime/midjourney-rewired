@@ -1,7 +1,7 @@
 const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
-const api = require('./api');
+require('../api/api');
 
 try {
     require('electron-reloader')(module)

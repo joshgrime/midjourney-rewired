@@ -29,7 +29,7 @@ function App() {
         <Helppanel />
         <div className="app-panel main-panel">
           {{ //mini router
-            home: <Home navTo={navTo} />,
+            home: <Home navTo={navTo} port={server_port} />,
             imageview: <ImageView navTo={navTo} port={server_port} />
             } [view]}
         </div>

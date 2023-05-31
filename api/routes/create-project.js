@@ -1,13 +1,13 @@
-function createProject(data) {
+function createProject(db, data) {
     return new Promise(function(resolve, reject){
     /* project
         - name
         - created
     */
-        console.log('creating project');
-        console.log(data);
-        resolve([{name:'babby'}, {name:'joshy'}])
-
+        var d = new Date();
+        var obj = { id: d.getTime(), title: data.title, children: [] };
+        db.get('projects').push(obj).write();
+        resolve({result:'success', data: obj});
     });
 }
 

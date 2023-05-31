@@ -2,11 +2,11 @@ const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 require('../api/api');
-
+/*
 try {
-    require('electron-reloader')(module)
-  } catch (_) {}
-
+  require('electron-reloader')(module)
+} catch (_) {}
+*/
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({

@@ -1,39 +1,26 @@
 const { ipcMain } = require('electron');
 const routes = require('./routes');
 
-ipcMain.on('port', (event) => {
-  
-    const port = event.ports[0]
+//initialise DB
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const adapter = new FileSync('db.json')
+const db = low(adapter)
 
-    port.on('message', (event) => {
-      var command = getCommand(event.data);
-      command(event.data).then(result => {
-        port.postMessage({ data: result })
-      });
-    });
+db.defaults({ projects: [], collections: [], experiments: [] }).write();
 
-    port.start();
-    
-})
-
-function getCommand(data) {
-    switch (data.route) {
-      case 'create-project':
-        return routes.createProject(data);
-    }
-}
-
-ipcMain.on('create-project', (event) => {
-
-  console.log(routes);
-  
+function generateResponse(event, data, command) {
   const port = event.ports[0]
   const [replyPort] = event.ports
-  routes.createProject(event.data).then(result => {
-    replyPort.postMessage({ data: result })
+  command(db, data).then(result => {
+    replyPort.postMessage(result);
+    replyPort.close();
   });
-  replyPort.close()
-
   port.start();
-  
-})
+}
+
+for (let route of routes) {
+  ipcMain.on(route.name, (event, data) => {
+    generateResponse(event, data, route.func);
+  })
+};

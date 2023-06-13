@@ -1,7 +1,8 @@
+require('dotenv').config();
 const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
-require('../api/api');
+require('../api');
 /*
 try {
   require('electron-reloader')(module)
@@ -11,8 +12,9 @@ function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
     minWidth: 800,
-    width: 1000,
-    height: 800,
+    minHeight: 820,
+    width: 1200,
+    height: 1000,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -34,7 +36,7 @@ function createWindow() {
   );
   // Open the DevTools.
   if (isDev) {
-    //win.webContents.openDevTools({ mode: 'detach' });
+    win.webContents.openDevTools({ mode: 'detach' });
   }
 }
 
@@ -59,4 +61,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
